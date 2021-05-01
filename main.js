@@ -128,13 +128,16 @@ function view() {
     point_1 -= tile_1;
     point_2 -= tile_2;
 
+    let resultMessage = "最終結果：";
     if (point_1 > point_2) {
-      viewTurn.innerHTML = "最終結果：1Pの勝ちデス";
+      resultMessage += "1Pの勝ちデス";
     } else if (point_1 < point_2) {
-      viewTurn.innerHTML = "最終結果：2Pの勝ちデス";
+      resultMessage += "2Pの勝ちデス";
     } else {
-      viewTurn.innerHTML = "最終結果：引き分けデス";
+      resultMessage += "引き分けデス";
     }
+    viewTurn.innerHTML = resultMessage;
+    viewAlertMessage(resultMessage);
   }
 }
 
