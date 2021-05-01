@@ -12,7 +12,18 @@ let select2P = 0;
 function selectHand(hand) {
   const isSucceed = setHand(hand);
   if (isSucceed) {
-    judge();
+    if (turn == 2) {
+      judge();
+    }
+
+    // next
+    if (turn == 2) {
+      round++;
+      turn = 1;
+    } else {
+      turn++;
+    }
+
     view();
   }
 }
@@ -43,34 +54,29 @@ function judge() {
     upPoint = 2;
   }
 
-  if (turn == 2) {
-    if (
-      (select1P == 0 && select2P == 2) ||
-      (select1P == 2 && select2P == 5) ||
-      (select1P == 5 && select2P == 0)
-    ) {
-      point_1 += upPoint;
-      viewAlertMessage("1Pの勝ち！" + "\n1Pの番デス。交代してください。");
-    } else if (
-      (select1P == 2 && select2P == 0) ||
-      (select1P == 5 && select2P == 2) ||
-      (select1P == 0 && select2P == 5)
-    ) {
-      point_2 += upPoint;
-      viewAlertMessage("2Pの勝ち！" + "\n1Pの番デス。交代してください。");
-    } else {
-      // pass
-      viewAlertMessage("あいこ！" + "\n1Pの番デス。交代してください。");
-    }
+  let resultMessage = "";
+  if (
+    (select1P == 0 && select2P == 2) ||
+    (select1P == 2 && select2P == 5) ||
+    (select1P == 5 && select2P == 0)
+  ) {
+    point_1 += upPoint;
+    resultMessage += "1Pの勝ち +" + upPoint + "点!";
+  } else if (
+    (select1P == 2 && select2P == 0) ||
+    (select1P == 5 && select2P == 2) ||
+    (select1P == 0 && select2P == 5)
+  ) {
+    point_2 += upPoint;
+    resultMessage += "2Pの勝ち +" + upPoint + "点!";
+  } else {
+    resultMessage += "あいこ";
   }
 
-  // next
-  if (turn == 2) {
-    round++;
-    turn = 1;
-  } else {
-    turn++;
+  if (round < 10) {
+    resultMessage += "\n1Pの番デス。交代してください。";
   }
+  viewAlertMessage(resultMessage);
 }
 
 function view() {
@@ -124,7 +130,9 @@ function view() {
 }
 
 function viewAlertMessage(message) {
-  window.alert(message + "\n \n \n" + "1P:" + point_1 + " 2P:" + point_2);
+  window.alert(
+    message + "\n \n \n" + "1P:" + point_1 + "点 2P:" + point_2 + "点"
+  );
 }
 
 // ready
