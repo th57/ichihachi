@@ -11,6 +11,11 @@ hr {
   margin: 10px;
 }
 
+button {
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  cursor:pointer;
+}
+
 .janken-area {
   margin: 10px;
 }

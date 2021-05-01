@@ -1,5 +1,6 @@
 let round = 1;
 let turn = 1;
+
 let point_1 = 0;
 let point_2 = 0;
 let tile_1 = 18;
@@ -9,60 +10,45 @@ let select1P = 0;
 let select2P = 0;
 
 function gu() {
-  //window.alert("グー！");
-
-  if (turn == 1) {
-    select1P = 0;
-  } else if (turn == 2) {
-    select2P = 0;
+  const isSucceed = setHand(0);
+  if (isSucceed) {
+    judge();
+    view();
   }
-
-  judge();
-  next();
 }
 function choki() {
-  //window.alert("チョキ！");
-
-  if (turn == 1) {
-    if (tile_1 < 2) {
-      window.alert("タイル不足！選び直して！");
-      return;
-    }
-    select1P = 1;
-    tile_1 -= 2;
-  } else if (turn == 2) {
-    if (tile_2 < 2) {
-      window.alert("タイル不足！選び直して！");
-      return;
-    }
-    select2P = 1;
-    tile_2 -= 2;
+  const isSucceed = setHand(2);
+  if (isSucceed) {
+    judge();
+    view();
   }
-
-  judge();
-  next();
 }
 function pa() {
-  //window.alert("パー！");
+  const isSucceed = setHand(5);
+  if (isSucceed) {
+    judge();
+    view();
+  }
+}
 
+function setHand(hand) {
   if (turn == 1) {
-    if (tile_1 < 5) {
+    if (tile_1 < hand) {
       window.alert("タイル不足！選び直して！");
-      return;
+      return false;
     }
-    select1P = 2;
-    tile_1 -= 5;
+    select1P = hand;
+    tile_1 -= hand;
   } else if (turn == 2) {
-    if (tile_2 < 5) {
+    if (tile_2 < hand) {
       window.alert("タイル不足！選び直して！");
-      return;
+      return false;
     }
-    select2P = 2;
-    tile_2 -= 5;
+    select2P = hand;
+    tile_2 -= hand;
   }
 
-  judge();
-  next();
+  return true;
 }
 
 function judge() {
@@ -73,24 +59,27 @@ function judge() {
 
   if (turn == 2) {
     if (
-      (select1P == 0 && select2P == 1) ||
-      (select1P == 1 && select2P == 2) ||
-      (select1P == 2 && select2P == 0)
+      (select1P == 0 && select2P == 2) ||
+      (select1P == 2 && select2P == 5) ||
+      (select1P == 5 && select2P == 0)
     ) {
-      window.alert("1Pの勝ち！");
       point_1 += upPoint;
+      viewAlertMessage("1Pの勝ち！" + "\n1Pの番デス。交代してください。");
     } else if (
-      (select1P == 1 && select2P == 0) ||
-      (select1P == 2 && select2P == 1) ||
-      (select1P == 0 && select2P == 2)
+      (select1P == 2 && select2P == 0) ||
+      (select1P == 5 && select2P == 2) ||
+      (select1P == 0 && select2P == 5)
     ) {
-      window.alert("2Pの勝ち！");
       point_2 += upPoint;
+      viewAlertMessage("2Pの勝ち！" + "\n1Pの番デス。交代してください。");
     } else {
       // pass
-      window.alert("あいこ！");
+      viewAlertMessage("あいこ！" + "\n1Pの番デス。交代してください。");
     }
+  }
 
+  // next
+  if (turn == 2) {
     round++;
     turn = 1;
   } else {
@@ -98,19 +87,19 @@ function judge() {
   }
 }
 
-function next() {
+function view() {
   const viewRound = document.getElementById("view-round");
   const viewTurn = document.getElementById("view-turn");
   const viewPoint = document.getElementById("view-point");
   const viewTile = document.getElementById("view-tile");
 
-  let nextRound = "";
-  let nextTurn = "";
-  let nextPoint = "";
-  let nextTile = "";
+  if (round <= 10) {
+    let nextRound = round + "回戦";
+    let nextTurn = "";
+    let nextPoint = "";
+    let nextTile = "";
 
-  if (round < 10) {
-    nextRound = round + "回戦";
+    viewRound.innerHTML = nextRound;
 
     if (turn == 1) {
       nextTurn = "1P";
@@ -122,10 +111,8 @@ function next() {
       nextTile = tile_2;
     }
 
-    if (round == 1) {
-      window.alert("ゲームスタート!");
-    } else {
-      window.alert(nextTurn + "の番デス。交代してください。");
+    if (turn == 2) {
+      viewAlertMessage("2Pの番デス。交代してください。");
     }
 
     viewRound.innerHTML = nextRound;
@@ -134,6 +121,13 @@ function next() {
     viewTile.innerHTML = nextTile + "本";
   } else {
     viewRound.innerHTML = "終了！";
+    document.getElementById("button-gu").disabled = true;
+    document.getElementById("button-choki").disabled = true;
+    document.getElementById("button-pa").disabled = true;
+
+    point_1 -= tile_1;
+    point_2 -= tile_2;
+
     if (point_1 > point_2) {
       viewTurn.innerHTML = "最終結果：1Pの勝ちデス";
     } else if (point_1 < point_2) {
@@ -144,4 +138,10 @@ function next() {
   }
 }
 
-next();
+function viewAlertMessage(message) {
+  window.alert(message + "\n" + "1P:" + point_1 + " 2P:" + point_2);
+}
+
+// ready
+window.alert("ゲームスタート!");
+view();

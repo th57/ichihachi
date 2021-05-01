@@ -1,0 +1,13 @@
+{
+  "short_name": "18",
+  "name": "18 -イチハチ-",
+  "start_url": "/ichihachi/index.html",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./assets/18.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
