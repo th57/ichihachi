@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+/*** common ***/
+
+body {
+  font-family: 'DotGothic16', sans-serif;
+  text-align: center;
+}
+
+hr {
+  margin: 10px;
+}
+
+.janken-area {
+  margin: 10px;
+}
+
+.janken-image {
+  width: 100px;
+}

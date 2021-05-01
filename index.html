@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="application-name" content="18 -イチハチ-">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <title>18</title>
+
+  <link rel="manifest" href="./manifest.json" crossorigin="use-credentials">
+  <link rel="icon" type="image/png" href="./assets/18.ico" />
+  <link rel="apple-touch-icon" href="./assets/18.png">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/ress.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+
+  <h1>18 -イチハチ-</h1>
+
+  <hr>
+
+  <h2 id="view-round">○回戦</h2>
+  <p id="view-turn">○Pの番です</p>
+
+  <hr>
+
+  <h2>ポイント</h2>
+  <p id="view-point">○点</p>
+
+  <hr>
+
+  <h2>残りの指タイル</h2>
+  <p id="view-tile">○個</p>
+
+  <hr>
+
+  <h2>じゃんけん</h2>
+  <div class="janken-area">
+    <button onclick="gu()"><img class="janken-image" src="assets/janken_gu.png" alt="グー" /></button>
+    <button onclick="choki()"><img class="janken-image" src="assets/janken_choki.png" alt="チョキ" /></button>
+    <button onclick="pa()"><img class="janken-image" src="assets/janken_pa.png" alt="パー" /></button>
+  </div>
+
+  <script src="./main.js"></script>
+</body>
+</html>
