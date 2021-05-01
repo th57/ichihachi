@@ -9,22 +9,8 @@ let tile_2 = 18;
 let select1P = 0;
 let select2P = 0;
 
-function gu() {
-  const isSucceed = setHand(0);
-  if (isSucceed) {
-    judge();
-    view();
-  }
-}
-function choki() {
-  const isSucceed = setHand(2);
-  if (isSucceed) {
-    judge();
-    view();
-  }
-}
-function pa() {
-  const isSucceed = setHand(5);
+function selectHand(hand) {
+  const isSucceed = setHand(hand);
   if (isSucceed) {
     judge();
     view();
@@ -95,23 +81,15 @@ function view() {
 
   if (round <= 10) {
     let nextRound = round + "回戦";
-    let nextTurn = "";
-    let nextPoint = "";
-    let nextTile = "";
+    let nextTurn = "1P";
+    let nextPoint = point_1;
+    let nextTile = tile_1;
 
-    viewRound.innerHTML = nextRound;
-
-    if (turn == 1) {
-      nextTurn = "1P";
-      nextPoint = point_1;
-      nextTile = tile_1;
-    } else if (turn == 2) {
+    if (turn == 2) {
       nextTurn = "2P";
       nextPoint = point_2;
       nextTile = tile_2;
-    }
 
-    if (turn == 2) {
       viewAlertMessage("2Pの番デス。交代してください。");
     }
 
@@ -120,11 +98,6 @@ function view() {
     viewPoint.innerHTML = nextPoint + "点";
     viewTile.innerHTML = nextTile + "本";
   } else {
-    viewRound.innerHTML = "終了！";
-    document.getElementById("button-gu").disabled = true;
-    document.getElementById("button-choki").disabled = true;
-    document.getElementById("button-pa").disabled = true;
-
     point_1 -= tile_1;
     point_2 -= tile_2;
 
@@ -136,7 +109,16 @@ function view() {
     } else {
       resultMessage += "引き分けデス";
     }
+
+    viewRound.innerHTML = "終了！";
     viewTurn.innerHTML = resultMessage;
+    viewPoint.innerHTML = "";
+    viewTile.innerHTML = "";
+
+    document.getElementById("button-gu").disabled = true;
+    document.getElementById("button-choki").disabled = true;
+    document.getElementById("button-pa").disabled = true;
+
     viewAlertMessage(resultMessage);
   }
 }
