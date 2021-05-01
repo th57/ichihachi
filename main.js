@@ -124,7 +124,7 @@ function view() {
 }
 
 function viewAlertMessage(message) {
-  window.alert(message + "\n" + "1P:" + point_1 + " 2P:" + point_2);
+  window.alert(message + "\n\n\n" + "1P:" + point_1 + " 2P:" + point_2);
 }
 
 // ready
